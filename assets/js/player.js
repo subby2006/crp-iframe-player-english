@@ -125,7 +125,7 @@ window.addEventListener("message", function (e) {
 
 			//Se o episodio não for apenas para premium pega as urls de um jeito mais facil
 			if (is_ep_premium_only == false) {
-				const video_m3u8_array = getMp4ListFromStream(allorigins + encodeURIComponent(video_stream_url));
+				const video_m3u8_array = m3u8ListFromStream(allorigins + encodeURIComponent(video_stream_url));
 				function linkDownload(id) {		
 					console.log('- Baixando: ', r[id])
 					var video_mp4_url = video_m3u8_array[id];
@@ -270,9 +270,9 @@ window.addEventListener("message", function (e) {
 	});
 
 	const rgx = /http.*$/gm;
-	function getMp4ListFromStream(url) {
+	function m3u8ListFromStream(url) {
 		console.log(url)
-
+		m3u8list = []
 		const m3u8 = $.ajax({
 			async: false,
 			type: "GET",
@@ -282,8 +282,25 @@ window.addEventListener("message", function (e) {
 
 		if (m3u8) {
 			streams = m3u8.match(rgx)
-			return streams.filter((el, idx) => idx%2===0)
+			m3u8list = streams.filter((el, idx) => idx%2===0)
 		} else 
 			return [];
+		
+		const res = [];
+		for (let m3u8_url of m3u8list) {
+			const video_m3u8 = $.ajax({
+				async: false,
+				type: "GET",
+				url: allorigins + encodeURIComponent(m3u8_url),
+				responseType: 'json'
+			}).responseJSON.contents;
+			
+			var blob = new Blob([video_m3u8], {
+				type: "text/plain; charset=utf-8"
+			});
+			res.push(URL.createObjectURL(blob) + "#.m3u8");
+		}
+
+		return res;
 	}
 });
