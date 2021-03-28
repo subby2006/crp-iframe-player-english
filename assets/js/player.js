@@ -30,19 +30,19 @@ window.addEventListener("message", function (e) {
 				rows_number++;
 			}
 		if (video_config_media['streams'][i].format == 'adaptive_hls' && video_config_media['streams'][i].hardsub_lang == user_lang) {
-			video_stream_url = video_config_media['streams'][i].url.replace("pl.crunchyroll.com", "fy.v.vrv.co");
+			video_stream_url = video_config_media['streams'][i].url;
 			break;
 		}
 	}
 
 	is_ep_premium_only = video_stream_url == ""
-	let allorigins = 'https://api.allorigins.win/raw?url=';
+	let allorigins = 'https://api.allorigins.win/get?url=';
 
 	console.log('[CR Premium] Linkando stream...')
 	$.ajax({
 		async: true,
 		type: "GET",
-		url: allorigins + series_rss,
+		url: allorigins + encodeURIComponent(series_rss),
 		contentType: "text/xml; charset=utf-8",
 		complete: response => {
 			//Pega o titulo da serie
@@ -125,9 +125,10 @@ window.addEventListener("message", function (e) {
 
 			//Se o episodio não for apenas para premium pega as urls de um jeito mais facil
 			if (is_ep_premium_only == false) {
+				const video_m3u8_array = getMp4ListFromStream(allorigins + encodeURIComponent(video_stream_url));
 				function linkDownload(id) {		
 					console.log('- Baixando: ', r[id])
-					var video_mp4_url = video_stream_url;
+					var video_mp4_url = video_m3u8_array[id];
 
 					function cb(result, status, xhr) {
 						if (xhr.status !== 200)
@@ -267,4 +268,22 @@ window.addEventListener("message", function (e) {
 			}
 		}
 	});
+
+	const rgx = /http.*$/gm;
+	function getMp4ListFromStream(url) {
+		console.log(url)
+
+		const m3u8 = $.ajax({
+			async: false,
+			type: "GET",
+			url: url,
+			responseType: 'json'
+		}).responseJSON.contents;
+
+		if (m3u8) {
+			streams = m3u8.match(rgx)
+			return streams.filter((el, idx) => idx%2===0)
+		} else 
+			return [];
+	}
 });
