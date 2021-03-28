@@ -125,26 +125,17 @@ window.addEventListener("message", function (e) {
 
 			//Se o episodio não for apenas para premium pega as urls de um jeito mais facil
 			if (is_ep_premium_only == false) {
+				console.log('- Baixando stream')
 				const video_m3u8_array = m3u8ListFromStream(allorigins + encodeURIComponent(video_stream_url));
+				if (!video_m3u8_array.length)
+					return;
 				function linkDownload(id) {		
 					console.log('- Baixando: ', r[id])
 					var video_mp4_url = video_m3u8_array[id];
-
-					function cb(result, status, xhr) {
-						if (xhr.status !== 200)
-							return setTimeout(() => linkDownload(id), 5000);
-					
-						u[id] = video_mp4_url;
-						pM1[id].resolve();
-					}
-
-					$.ajax({
-						async: true,
-						type: "HEAD",
-						url: video_mp4_url,
-						success: cb
-					});
+					u[id] = video_mp4_url;
+					pM1[id].resolve();
 				}
+
 				for (id in r)
 					linkDownload(id);
 			}
