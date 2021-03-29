@@ -1,7 +1,7 @@
 window.addEventListener("message", e => {
 
 	// Meta para testar o player APENAS em localhost
-	if (window.location.href == "http:// 127.0.0.1:5500/") {
+	if (window.location.href == "http://127.0.0.1:5500/") {
 		let meta = document.createElement('meta');
 		meta.httpEquiv = "Content-Security-Policy";
 		meta.content = "upgrade-insecure-requests";
@@ -58,6 +58,7 @@ window.addEventListener("message", e => {
 	function linkDownload(id) {
 		console.log('  - Baixando: ', r[id])
 		let video_mp4_url = video_m3u8_array[id];
+		u[id] = video_mp4_url;
 
 		let fileSize = "";
 		let http = (window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"));
@@ -74,7 +75,7 @@ window.addEventListener("message", e => {
 					let return_fileSize = (fileSize / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
 					console.log(`[CR Premium] Source adicionado: ${r[id]} (${return_fileSize})`);
 					s[id] = return_fileSize;
-					u[id] = video_mp4_url;
+					document.getElementById(r[id] + "_down_size").innerText = s[id];
 					request[id].resolve();
 				}
 			} else if (http.readyState == 4)
@@ -90,17 +91,9 @@ window.addEventListener("message", e => {
 
 	// Carregar player assim que encontrar as URLs
 	let sources = [];
-	Promise.all(promises).then(() => {
-		for (i of [1, 0, 2, 3, 4]) {
-			const idx = i;
-			promises[idx].then(msg => {
-				if (msg) sources.push({ file: u[idx], label: r[idx] + '<sup><sup>Não encontrado</sup></sup>'})
-				else sources.push({ file: u[idx], label: r[idx] + (idx<2 ? '<sup><sup>HD</sup></sup>' : '')})
-			});
-		}
-		// Inicia player no final do eventloop (qnd todos os sources#push() terminarem)
-		Promise.all(promises).then(() => startPlayer());
-	})
+	for (idx of [1, 0, 2, 3, 4])
+		sources.push({ file: u[idx], label: r[idx] + (idx<2 ? '<sup><sup>HD</sup></sup>' : '')});
+	setTimeout(() => startPlayer(), 200);
 
 	function startPlayer() {
 		// Inicia o player
@@ -143,7 +136,6 @@ window.addEventListener("message", e => {
 		for (let id in r) {
 			document.getElementById(r[id] + "_down_url").href = u[id];
 			document.getElementById(r[id] + "_down_url").download = video_config_media['metadata']['title'].replaceAll(/[\\/<>\|?*:]+/g, '-').replaceAll('"', "'")
-			document.getElementById(r[id] + "_down_size").innerText = s[id];
 		}
 
 		// Funções para o player
