@@ -39,9 +39,6 @@ window.addEventListener("message", async e => {
 				rows_number++;
 				// mp4 + resolve temporario até pegar link direto da m3u8
 				if (rows_number > 4) {
-					let temp = video_mp4_array[0];
-					video_mp4_array[0] = video_mp4_array[1]
-					video_mp4_array[1] = temp;
 					video_m3u8_array = video_mp4_array;
 					for (let i in r) {
 						const idx = i;
@@ -102,7 +99,7 @@ window.addEventListener("message", async e => {
 
 	// Carregar player assim que encontrar as URLs dos m3u8.
 	Promise.all(promises).then(() => {
-		for (let idx in video_m3u8_array)
+		for (let idx of [1, 0, 2, 3, 4])
 			sources.push({ file: video_m3u8_array[idx], label: r[idx] + (idx<2 ? '<sup><sup>HD</sup></sup>' : '')});
 		startPlayer();
 	});
