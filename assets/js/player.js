@@ -37,8 +37,11 @@ window.addEventListener("message", async e => {
 				// video_m3u8_array.push(await getDirectStream(stream.url, rows_number));
 				video_mp4_array.push(getDirectFile(stream.url));
 				rows_number++;
+				// mp4 + resolve temporario até pegar link direto da m3u8
 				if (rows_number > 4) {
-					// mp4 + resolve temporario até pegar link direto da m3u8
+					let temp = video_mp4_array[0];
+					video_mp4_array[0] = video_mp4_array[1]
+					video_mp4_array[1] = temp;
 					video_m3u8_array = video_mp4_array;
 					for (let i in r) {
 						const idx = i;
