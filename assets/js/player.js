@@ -87,7 +87,7 @@ window.addEventListener("message", async e => {
 					if (i == 0) return console.log('addSource#i == 0');
 					let return_fileSize = (fileSize / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
 					s[id] = return_fileSize;
-					//document.getElementById(r[id] + "_down_size").innerText = s[id];
+					document.getElementById(r[id] + "_down_size").innerText = s[id];
 					return console.log(`[CR Premium] Source adicionado: ${r[id]} (${return_fileSize})`);
 				}
 			} else if (http.readyState == 4)
@@ -197,7 +197,6 @@ window.addEventListener("message", async e => {
 				responseType: 'json'
 			})
 			.then(res=>{
-				console.log(res)
 				resolve(res.contents)
 			})
 			.catch(err=>reject(err));
@@ -222,13 +221,11 @@ window.addEventListener("message", async e => {
 	// ---- M3U8 ---- (assistir)
 	// Obtem o link direto pelo trailer
 	function getDirectStream(url, idx) {
-		console.log(url)
 		setTimeout(() => request[idx].resolve(), 200);
 	}
 
 	// Obtem o link direto pelo padrão
 	async function m3u8ListFromStream(url) {
-		console.log(url)
 		let m3u8list = []
 		const master_m3u8 = await getAllOrigins(url);
 
