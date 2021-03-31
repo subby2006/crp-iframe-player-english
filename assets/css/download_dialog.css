@@ -40,8 +40,8 @@
     padding: 20px;
     -webkit-filter: url(#blur);
     filter: url(#blur);
-    -webkit-transform: translate3d(50px, -900%, 0);
-    transform: translate3d(50px, -900%, 0);
+    -webkit-transform: translate3d(0, -900%, 0);
+    transform: translate3d(0, -900%, 0);
 }
 .close-modal {
 	background: none;
