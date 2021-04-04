@@ -72,7 +72,7 @@ window.addEventListener("message", async e => {
 
 	if (video_config_media['metadata']['up_next']) {
 		let prox_ep_number = video_config_media['metadata']['up_next']['display_episode_number'];
-		episode_title = video_config_media['metadata']['up_next']['series_title'] + ' - ' + prox_ep_number.replace(/\d+/g, '') + video_config_media['metadata']['display_episode_number'];
+		episode_title = video_config_media['metadata']['up_next']['series_title'] + ' - ' + prox_ep_number.replace(/\d+|OVA/g, '') + video_config_media['metadata']['display_episode_number'];
 	} else
 		episode_title = episode_translate + video_config_media['metadata']['display_episode_number'] + final_translate;
 
@@ -123,7 +123,8 @@ window.addEventListener("message", async e => {
 			"height": "100%",
 			"autostart": false,
 			"displayPlaybackLabel": true,
-			"primary": "html5"
+			"primary": "html5",
+			"playbackRateControls": [0.5, 0.75, 1, 1.25, 1.5, 2]
 		});
 
 		// Variaveis para o botao de baixar.
@@ -211,12 +212,12 @@ window.addEventListener("message", async e => {
 	}
 
 	// ---- MP4 ---- (baixar)
-	// Obtem o link direto pelo trailer
+	// Obtem o link direto pelo trailer (premium)
 	function getDirectFile(url) {
 		return url.replace(/\/clipFrom.*?index.m3u8/, '').replace('_,', '_').replace(url.split("/")[2], "fy.v.vrv.co");
 	}
 
-	// Obtem o link direto pelo padrão
+	// Obtem o link direto pelo padrão (gratis)
 	function mp4ListFromStream(url) {
 		const cleanUrl = url.replace('evs1', 'evs').replace(url.split("/")[2], "fy.v.vrv.co");
 		const res = [];
@@ -226,12 +227,12 @@ window.addEventListener("message", async e => {
 	}
 
 	// ---- M3U8 ---- (assistir)
-	// Obtem o link direto pelo trailer
+	// Obtem o link direto pelo trailer (premium) - to do
 	function getDirectStream(url, idx) {
 		setTimeout(() => request[idx].resolve(), 400);
 	}
 
-	// Obtem o link direto pelo padrão
+	// Obtem o link direto pelo padrão (gratis)
 	async function m3u8ListFromStream(url) {
 		let m3u8list = []
 		const master_m3u8 = await getAllOrigins(url);
