@@ -148,6 +148,10 @@ function importPlayer() {
 			document.body.querySelector("#showmedia_free_trial_signup").style.display = "none";
 		}
 
+        // Simular interação do usuário para deixar em fullscreen automaticamente
+		var element = document.getElementById("template_scroller");
+		if (element) element.click();
+
 		const series = document.querySelector('meta[property="og:title"]');
 		const up_next = document.querySelector('link[rel=next]');
 		//Ao carregar o iframe, manda uma mensagem para o iframe com os dados da stream.
