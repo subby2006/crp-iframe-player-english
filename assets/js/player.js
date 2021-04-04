@@ -230,7 +230,7 @@ window.addEventListener("message", async e => {
 			// Mantem fullscreen + autoplay caso tenha sido redirecionado usando a função "A seguir"/"Next up"
 			if (localStorage.getItem("next_up") === "true") {
 				localStorage.setItem("next_up", false)
-				jwplayer().setFullscreen(localStorage.getItem("next_up_fullscreen"));
+				// jwplayer().setFullscreen(localStorage.getItem("next_up_fullscreen")); <- problemas com fullscreen automatico
 				jwplayer().play();
 			}
 
