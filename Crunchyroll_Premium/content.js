@@ -52,7 +52,11 @@ function importPlayer(){
 			console.log("[CR Premium] Removendo Free Trial Signup...");
 			document.body.querySelector("#showmedia_free_trial_signup").style.display = "none";
 		}
-		
+
+        // Simular interação do usuário para deixar em fullscreen automaticamente
+		var element = document.getElementById("template_scroller");
+		if (element) element.click();
+        
 		const series = document.querySelector('meta[property="og:title"]');
 		const up_next = document.querySelector('link[rel=next]');
 		chrome.storage.sync.get(['aseguir', 'cooldown'], function(items) {
