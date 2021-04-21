@@ -49,7 +49,7 @@ window.addEventListener("message", async e => {
 		if (stream.format == 'trailer_hls' && stream.hardsub_lang == user_lang || (streamlist.length < 15 && stream.hardsub_lang === null))
 			if (rows_number <= 4) {
 				// video_m3u8_array.push(await getDirectStream(stream.url, rows_number));
-				const arr_idx = (rows_number === 1 ? 2 : (rows_number === 2 ? 1 : rows_number));
+				const arr_idx = (rows_number === 0 ? 2 : (rows_number === 2 ? 0 : rows_number));
 				video_mp4_array[arr_idx] = getDirectFile(stream.url);
 				rows_number++;
 				// mp4 + resolve temporario até pegar link direto da m3u8
