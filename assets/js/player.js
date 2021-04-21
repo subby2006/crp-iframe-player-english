@@ -45,11 +45,12 @@ window.addEventListener("message", async e => {
 	// Obter streams
 	const streamlist = video_config_media['streams'];
 	for (let stream of streamlist) {
-		// Premium                                                             vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv - versões "International Dub"
+		// Premium                                                             vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv - versões "International Dub"
 		if (stream.format == 'trailer_hls' && stream.hardsub_lang == user_lang || (streamlist.length < 15 && stream.hardsub_lang === null))
 			if (rows_number <= 4) {
 				// video_m3u8_array.push(await getDirectStream(stream.url, rows_number));
-				video_mp4_array.push(getDirectFile(stream.url));
+				const arr_idx = (rows_number === 1 ? 2 : (rows_number === 2 ? 1 : rows_number));
+				video_mp4_array[arr_idx] = getDirectFile(stream.url);
 				rows_number++;
 				// mp4 + resolve temporario até pegar link direto da m3u8
 				if (rows_number > 4) {
