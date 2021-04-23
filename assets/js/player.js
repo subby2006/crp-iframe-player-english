@@ -17,6 +17,7 @@ window.addEventListener("message", async e => {
 
 	let rgx = /http.*$/gm;
 	let streamrgx = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
+	let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
 	let video_config_media = JSON.parse(e.data.video_config_media);
 	let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
 	let video_id = video_config_media['metadata']['id'];
@@ -289,7 +290,10 @@ window.addEventListener("message", async e => {
 		const cleanUrl = url.replace('evs1', 'evs').replace(url.split("/")[2], "fy.v.vrv.co");
 		const res = [];
 		for (let i in r)
-			res.push(cleanUrl.replace(streamrgx, `_$${(parseInt(i)+1)}`))
+			if (streamrgx_three.test(cleanUrl) && i <= 2) // por algum motivo alguns videos da CR tem apenas 3 resoluções
+				res.push(cleanUrl.replace(streamrgx_three, `_$${(parseInt(i)+1)}`))
+			else
+				res.push(cleanUrl.replace(streamrgx, `_$${(parseInt(i)+1)}`))
 		return res;
 	}
 
