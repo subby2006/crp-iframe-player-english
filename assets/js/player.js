@@ -87,7 +87,7 @@ window.addEventListener("message", async e => {
 		episode_title = episode_translate + video_config_media['metadata']['display_episode_number'] + final_translate;
 
 	// Checa se o URL do video_mp4_array[id] existe e calcula o tamanho p/ download
-	function linkDownload(id) {
+	function linkDownload(id, tentativas=0) {
 		console.log('  - Baixando: ', r[id])
 		let video_mp4_url = video_mp4_array[id];
 
@@ -107,8 +107,8 @@ window.addEventListener("message", async e => {
 					dlSize[id].innerText = return_fileSize;
 					return console.log(`[CR Premium] Source adicionado: ${r[id]} (${return_fileSize})`);
 				}
-			} else if (http.readyState == 4)
-				return setTimeout(() => linkDownload(id), 5000);
+			} else if (http.readyState == 4 && tentativas < 3)
+				return setTimeout(() => linkDownload(id, tentativas + 1), 5000);
 		}
 		http.open("HEAD", video_mp4_url, true);
 		http.send(null);
