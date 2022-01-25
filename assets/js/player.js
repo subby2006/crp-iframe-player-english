@@ -306,8 +306,10 @@ window.addEventListener("message", async e => {
   async function getConfigMedia(messageData) {
     if (messageData.video_config_media)
       return JSON.parse(messageData.video_config_media);
-    const media_content = await getAllOrigins(messageData.old_url, vilosprxy)
-    return JSON.parse(media_content)
+    else if (messageData.old_url) {
+      const media_content = await getAllOrigins(messageData.old_url, vilosprxy)
+      return JSON.parse(media_content)
+    }
   }
 
   // ---- MP4 ---- (baixar)
