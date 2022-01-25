@@ -20,7 +20,7 @@ window.addEventListener("message", async e => {
   let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
   let vilosprxy = "https://crp-proxy.herokuapp.com/vilos?url=";
   let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
-  let video_config_media = await getConfigMedia(e.data);
+  let video_config_media = await getConfigMedia(e.data.video_config_media, e.data.old_url);
   let video_id = video_config_media['metadata']['id'];
   let up_next_cooldown = e.data.up_next_cooldown;
   let up_next_enable = e.data.up_next_enable;
@@ -303,13 +303,14 @@ window.addEventListener("message", async e => {
     })
   }
 
-  async function getConfigMedia(messageData) {
-    if (messageData.video_config_media)
-      return JSON.parse(messageData.video_config_media);
-    else if (messageData.old_url) {
-      const media_content = await getAllOrigins(messageData.old_url, vilosprxy)
+  async function getConfigMedia(video_config_media, old_url) {
+    if (video_config_media)
+      return JSON.parse(video_config_media)
+    else if (old_url) {
+      const media_content = await getAllOrigins(old_url, vilosprxy)
       return JSON.parse(media_content)
-    }
+    } 
+    else return {}
   }
 
   // ---- MP4 ---- (baixar)
