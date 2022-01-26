@@ -16,6 +16,7 @@ window.addEventListener("message", async e => {
   for (let i in r) promises[i] = new Promise((resolve, reject) => request[i] = { resolve, reject });
 
   let rgx = /http.*$/gm;
+  let needproxy = !e.data.noproxy;
   let streamrgx = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
   let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
   let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
@@ -23,7 +24,6 @@ window.addEventListener("message", async e => {
   let video_id = video_config_media['metadata']['id'];
   let up_next_cooldown = e.data.up_next_cooldown;
   let up_next_enable = e.data.up_next_enable;
-  let needproxy = !e.data.noproxy;
   let up_next = e.data.up_next;
   let version = e.data.version;
   let user_lang = e.data.lang;
@@ -257,10 +257,10 @@ window.addEventListener("message", async e => {
     });
 
     jwplayer().on('viewable', e => {
-      const btn = query => document.querySelector(`div[button="${query}"]`)
       const old = document.querySelector('.jw-button-container > .jw-icon-rewind')
+      if (!old) return
+      const btn = query => document.querySelector(`div[button="${query}"]`)
       const btnContainer = old.parentElement
-      if (!btnContainer) return
       btnContainer.insertBefore(btn(rewind_id), old)
       btnContainer.insertBefore(btn(forward_id), old)
       btnContainer.removeChild(old)
