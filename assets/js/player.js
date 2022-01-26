@@ -18,12 +18,12 @@ window.addEventListener("message", async e => {
   let rgx = /http.*$/gm;
   let streamrgx = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
   let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
-  let vilosprxy = "https://crp-proxy.herokuapp.com/vilos?url=";
   let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
   let video_config_media = await getConfigMedia(e.data.video_config_media, e.data.old_url);
   let video_id = video_config_media['metadata']['id'];
   let up_next_cooldown = e.data.up_next_cooldown;
   let up_next_enable = e.data.up_next_enable;
+  let needproxy = !e.data.noproxy;
   let up_next = e.data.up_next;
   let version = e.data.version;
   let user_lang = e.data.lang;
@@ -260,7 +260,7 @@ window.addEventListener("message", async e => {
       const btn = query => document.querySelector(`div[button="${query}"]`)
       const old = document.querySelector('.jw-button-container > .jw-icon-rewind')
       const btnContainer = old.parentElement
-      console.log(btnContainer, old, btn(rewind_id), btn(forward_id))
+      if (!btnContainer) return
       btnContainer.insertBefore(btn(rewind_id), old)
       btnContainer.insertBefore(btn(forward_id), old)
       btnContainer.removeChild(old)
@@ -288,12 +288,12 @@ window.addEventListener("message", async e => {
   }
 
   /* ~~~~~~~~~~ FUNÇÕES ~~~~~~~~~~ */
-  function getAllOrigins(url, proxy = allorigins) {
+  function getAllOrigins(url) {
     return new Promise(async (resolve, reject) => {
       await $.ajax({
         async: true,
         type: "GET",
-        url: proxy + encodeURIComponent(url),
+        url: needproxy ? allorigins + encodeURIComponent(url) : url,
         responseType: 'json'
       })
       .then(res=>{
@@ -307,10 +307,15 @@ window.addEventListener("message", async e => {
     if (video_config_media)
       return JSON.parse(video_config_media)
     else if (old_url) {
-      const media_content = await getAllOrigins(old_url, vilosprxy)
+      const media_content = await getVilosMedia(old_url)
       return JSON.parse(media_content)
     } 
     else return {}
+  }
+
+  async function getVilosMedia(url) {
+    console.log(await getAllOrigins(url))
+    return '{}'
   }
 
   // ---- MP4 ---- (baixar)
