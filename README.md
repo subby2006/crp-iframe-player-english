@@ -37,3 +37,8 @@ Você pode encontrar a última versão disponível aqui:
  8. Agora é só assistir 😉
 
 Obrigado por utilizar.
+
+# Nota - Crunchyroll Beta
+O novo site **beta** do Crunchyroll quebra completamente a extensão.  
+Essa versão faz com que ao acessar o novo site, seu navegador acesse a versão antiga para puxar os dados do vídeo (não disponível na versão beta).  
+Isso quer dizer que, se a versão antiga do Crunchyroll for **completamente substituída** a extensão irá parar de funcionar permanentemente. :(

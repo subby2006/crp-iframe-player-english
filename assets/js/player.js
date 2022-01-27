@@ -1,7 +1,8 @@
 window.addEventListener("message", async e => {
 
   // Meta para testar o player APENAS em localhost
-  if (window.location.href == "http://127.0.0.1:5500/") {
+  const href = window.location.href
+  if (href.startsWith("http://127.0.0.1") || href.startsWith("http://localhost")) {
     let meta = document.createElement('meta');
     meta.httpEquiv = "Content-Security-Policy";
     meta.content = "upgrade-insecure-requests";
@@ -16,6 +17,7 @@ window.addEventListener("message", async e => {
   for (let i in r) promises[i] = new Promise((resolve, reject) => request[i] = { resolve, reject });
 
   let rgx = /http.*$/gm;
+  let is_beta = e.data.beta;
   let needproxy = !e.data.noproxy;
   let streamrgx = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
   let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
@@ -191,12 +193,6 @@ window.addEventListener("message", async e => {
     document.querySelectorAll("button.close-modal")[0].onclick = () => downloadModal.style.visibility = "hidden";
     document.querySelectorAll("button.close-modal")[1].onclick = () => updateModal.style.visibility = "hidden";
 
-    if (user_lang[0] === 'ptBR')
-      document.getElementById('changelog').innerHTML = `<strong>Atualização disponível:</strong><br/>
-      - Add card <strong>A seguir</strong> & opções:<br/>
-        automaticamente muda para o próximo episódio<br/>
-      - Fix nome das series (ultimos eps)`;
-
     // function ao clicar no botao de baixar
     function download_ButtonClickAction() {
       // Se estiver no mobile, muda um pouco o design do menu
@@ -230,7 +226,7 @@ window.addEventListener("message", async e => {
       .addButton(rewind_iconPath, rewind_tooltipText, rewind_ButtonClickAction, rewind_id)
       .addButton(download_iconPath, download_tooltipText, download_ButtonClickAction, download_id);
 
-    if (version !== "1.0.3")
+    if (version !== "1.1.0")
       playerInstance.addButton(update_iconPath, update_tooltipText, update_ButtonClickAction, update_id);
 
     // Definir URL e Tamanho na lista de download
@@ -264,6 +260,8 @@ window.addEventListener("message", async e => {
       btnContainer.insertBefore(btn(rewind_id), old)
       btnContainer.insertBefore(btn(forward_id), old)
       btnContainer.removeChild(old)
+      if (is_beta)
+        document.getElementById('player_div').classList.add('beta-layout')
     })
 
     // Mostra uma tela de erro caso a legenda pedida não exista.
@@ -314,8 +312,15 @@ window.addEventListener("message", async e => {
   }
 
   async function getVilosMedia(url) {
-    console.log(await getAllOrigins(url))
-    return '{}'
+    const htmlPage = await getAllOrigins(url)
+    if (!htmlPage) return '{}'
+
+    const startIndex = htmlPage.indexOf('config.media =')
+    const initialConfig = htmlPage.substr(startIndex + 15)
+
+    const endIndex = initialConfig.indexOf('\n\n')
+    const config = initialConfig.substr(0, endIndex - 1)
+    return config || '{}'
   }
 
   // ---- MP4 ---- (baixar)

@@ -14,6 +14,10 @@ video {
 	height: 100%!important;
 }
 
+#player_div.beta-layout {
+  height: 80vh !important;
+}
+
 #player_div .jw-button-color.jw-toggle:not(.jw-icon-cast),
 #player_div .jw-button-color:hover:not(.jw-icon-cast),
 #player_div .jw-button-color:focus:not(.jw-icon-cast),
