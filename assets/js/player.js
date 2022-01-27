@@ -39,6 +39,8 @@ window.addEventListener("message", async e => {
   let rows_number = 0;
   let sources = [];
   
+  if (up_next && !video_config_media['metadata']['up_next']) up_next = false
+
   let dlSize = [];
   let dlUrl = [];
   for (let idx in r) {
