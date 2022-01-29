@@ -1,4 +1,4 @@
-# Crunchyroll  iFrame Player [![Built with love](https://img.shields.io/badge/built%20with-love-orange?style=for-the-badge)](https://github.com/mateus7g/crp-iframe-player/releases/latest) [![Downloads](https://img.shields.io/github/downloads/mateus7g/crp-iframe-player/total.svg?style=for-the-badge)](https://github.com/mateus7g/crp-iframe-player/releases/latest) [![Latest Release](https://img.shields.io/github/v/release/mateus7g/crp-iframe-player?include_prereleases&style=for-the-badge)](https://github.com/mateus7g/crp-iframe-player/releases/latest)  
+# Crunchyroll iFrame Player [![Built with love](https://img.shields.io/badge/made%20with-javascript-yellow?style=for-the-badge)](https://github.com/mateus7g/crp-iframe-player/releases/latest) [![Downloads](https://img.shields.io/github/downloads/mateus7g/crp-iframe-player/total.svg?style=for-the-badge)](https://github.com/mateus7g/crp-iframe-player/releases/latest)
 
 Essa é uma extensão da comunidade que permite assistir todo conteúdo da Crunchyroll.  
 Originalmente criada por [itallolegal](https://github.com/itallolegal) (desativado) e [Hyper1025](https://github.com/Hyper1025), atualmente mantida por [Mateus7G](https://github.com/Mateus7G).  
@@ -6,18 +6,19 @@ Um agradecimento especial a todos os colaboradores.
 
 Obrigado por utilizar. :)
 
-## Download
+## Download 
 Você pode encontrar as últimas versões disponíveis abaixo:  
 
 
-#### [![Desktop](https://img.shields.io/badge/desktop-pc-yellowgreen?style=for-the-badge&logo=windows)](https://github.com/mateus7g/crp-iframe-player/releases/latest)
+#### [![Desktop](https://img.shields.io/badge/desktop-v1.1.0-violet?style=for-the-badge&logo=windows)](https://github.com/mateus7g/crp-iframe-player/releases/latest)
 
 Atualmente a versão para Desktop está disponível [aqui](https://github.com/Mateus7G/crp-iframe-player/releases/latest).  
-Para instalar veja o [passo a passo para pc](#--como-instalar-desktop).
+Para instalar veja o [passo a passo para pc](#%EF%B8%8F-como-instalar-desktop).
 
-#### [![Android](https://img.shields.io/badge/android-kiwi-yellowgreen?style=for-the-badge&logo=android)](https://github.com/Mateus7G/crp-iframe-player/releases/tag/v1.0.3)
+#### [![Android](https://img.shields.io/badge/android-v1.0.3-violet?style=for-the-badge&logo=android)](https://github.com/Mateus7G/crp-iframe-player/releases/tag/v1.0.3)  
+
 Versão mais recente para o Kiwi Browser está disponível [aqui](https://github.com/Mateus7G/crp-iframe-player/releases/tag/v1.0.3).  
-Para instalar veja o [passo a passo para android](#--como-instalar-android).  
+Para instalar veja o [passo a passo para android](#-como-instalar-android).  
 A versão para o Android ainda não é compatível com o Crunchyroll Beta: [`24#issuecomment-1022755102`](https://github.com/Mateus7G/crp-iframe-player/issues/24#issuecomment-1022755102)    
 
 
