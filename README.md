@@ -17,13 +17,12 @@ Você pode encontrar as últimas versões disponíveis abaixo:
 Atualmente a versão para Desktop está disponível na [aqui](https://github.com/Mateus7G/crp-iframe-player/releases/latest).  
 Para instalar veja o passo a passo [para pc](#%EF%B8%8F-como-instalar-desktop).
 
-<a href="https://github.com/Mateus7G/crp-iframe-player/releases/tag/v1.0.3" target="_blank"><img align="right" alt="Desktop" src="https://img.shields.io/badge/android-v1.0.3-violet?style=for-the-badge&logo=android"></a>
+<a href="https://github.com/Mateus7G/crp-iframe-player/releases/latest" target="_blank"><img align="right" alt="Android" src="https://img.shields.io/badge/android-v1.1.0-violet?style=for-the-badge&logo=android"></a>
 
 #### Android (Kiwi)
 
-Versão mais recente para o Kiwi Browser está disponível [aqui](https://github.com/Mateus7G/crp-iframe-player/releases/tag/v1.0.3).  
-Para instalar veja o passo a passo [para android](#-como-instalar-android).  
-A versão para o Android ainda não é compatível com o Crunchyroll Beta: [`24#issuecomment-1022755102`](https://github.com/Mateus7G/crp-iframe-player/issues/24#issuecomment-1022755102)    
+Versão mais recente para o Kiwi Browser está disponível [aqui](https://github.com/Mateus7G/crp-iframe-player/releases/latest).  
+Para instalar veja o passo a passo [para android](#-como-instalar-android).     
 
 
 ## 🖥️ Como instalar? (desktop)
