@@ -153,6 +153,7 @@ window.addEventListener("message", async e => {
       "autostart": false,
       "displayPlaybackLabel": true,
       "primary": "html5",
+      "cast": {},
       "playbackRateControls": [0.5, 0.75, 1, 1.25, 1.5, 2]
     }).on('playlistItem', e => {
       // tocar próximo ep
